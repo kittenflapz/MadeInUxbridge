@@ -14,8 +14,8 @@ This project is a directory of local businesses, products, and services in Uxbri
 2. **Configure Environment Variables**: Copy `.env.local.example` to `.env.local` and set your Contentful API keys.
 3. **Run Locally**: Install dependencies and start the development server.
    ```bash
-   npm install
-   npm run dev
+   yarn install
+   yarn dev
    ```
    Access the site at [http://localhost:3000](http://localhost:3000).
 
