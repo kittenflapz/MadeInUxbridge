@@ -1,101 +1,84 @@
 import Link from "next/link";
 import { draftMode } from "next/headers";
-
-import Date from "./date";
-import CoverImage from "./cover-image";
-import Avatar from "./avatar";
-import MoreStories from "./more-stories";
-
-import { getAllPosts } from "@/lib/api";
-import { CMS_NAME, CMS_URL } from "@/lib/constants";
+import BusinessImage from "./business-image";
+import { getAllBusinesses } from "@/lib/api";
 
 function Intro() {
   return (
-    <section className="flex-col md:flex-row flex items-center md:justify-between mt-16 mb-16 md:mb-12">
+    <section className="flex-col md:flex-row flex items-center md:justify-between mt-16 mb-16 md:mb-12 bg-gray-200 rounded-2xl shadow-lg p-10">
       <h1 className="text-6xl md:text-8xl font-bold tracking-tighter leading-tight md:pr-8">
-        Blog.
+        Made in Uxbridge.
       </h1>
       <h2 className="text-center md:text-left text-lg mt-5 md:pl-8">
-        A statically generated blog example using{" "}
-        <a
-          href="https://nextjs.org/"
-          className="underline hover:text-success duration-200 transition-colors"
-        >
-          Next.js
-        </a>{" "}
-        and{" "}
-        <a
-          href={CMS_URL}
-          className="underline hover:text-success duration-200 transition-colors"
-        >
-          {CMS_NAME}
-        </a>
-        .
+        Uxbridge is home to amazing products, so we have compiled an organized
+        list of items made right here. Think spices, machinery, produce,
+        publications, electronics and more!
       </h2>
     </section>
   );
 }
 
-function HeroPost({
-  title,
-  coverImage,
-  date,
-  excerpt,
-  author,
-  slug,
+function Business({
+  name,
+  category,
+  streetAddress,
+  postalCode,
+  website,
+  image,
+  description,
 }: {
-  title: string;
-  coverImage: any;
-  date: string;
-  excerpt: string;
-  author: any;
-  slug: string;
+  name: string;
+  category: string;
+  streetAddress: string;
+  postalCode: string;
+  website: string;
+  image: any;
+  description: string;
 }) {
   return (
-    <section>
+    <section className="md:grid md:grid-cols-2 md:gap-x-16 lg:gap-x-8 mb-20 md:mb-28">
       <div className="mb-8 md:mb-16">
-        <CoverImage title={title} slug={slug} url={coverImage.url} />
+        <BusinessImage title={name} slug={website} url={image.url} />
       </div>
-      <div className="md:grid md:grid-cols-2 md:gap-x-16 lg:gap-x-8 mb-20 md:mb-28">
-        <div>
-          <h3 className="mb-4 text-4xl lg:text-6xl leading-tight">
-            <Link href={`/posts/${slug}`} className="hover:underline">
-              {title}
-            </Link>
-          </h3>
-          <div className="mb-4 md:mb-0 text-lg">
-            <Date dateString={date} />
-          </div>
+      <div>
+        <h3 className="mb-4 text-4xl lg:text-6xl leading-tight">
+          <Link href={website} className="hover:underline">
+            {name}
+          </Link>
+        </h3>
+        <div className="mb-8 md:mb-4 text-lg">
+          <p>{streetAddress}</p>
+          <p>{postalCode}</p>
         </div>
-        <div>
-          <p className="text-lg leading-relaxed mb-4">{excerpt}</p>
-          {author && <Avatar name={author.name} picture={author.picture} />}
+        <div className="bg-gray-100 border-l-4 border-orange-500 text-orange-700 p-6 mb-6 rounded-l-xl shadow-2xl">
+          <p className="text-lg leading-relaxed">{description}</p>
         </div>
+        <span className="inline-block bg-gray-200 text-gray-700 text-sm px-2 py-1 rounded">
+          {category}
+        </span>
       </div>
     </section>
   );
 }
 
 export default async function Page() {
-  const { isEnabled } = draftMode();
-  const allPosts = await getAllPosts(isEnabled);
-  const heroPost = allPosts[0];
-  const morePosts = allPosts.slice(1);
+  const allBusinesses = await getAllBusinesses();
 
   return (
     <div className="container mx-auto px-5">
       <Intro />
-      {heroPost && (
-        <HeroPost
-          title={heroPost.title}
-          coverImage={heroPost.coverImage}
-          date={heroPost.date}
-          author={heroPost.author}
-          slug={heroPost.slug}
-          excerpt={heroPost.excerpt}
+      {allBusinesses.map((business) => (
+        <Business
+          key={business.name}
+          name={business.name}
+          category={business.category}
+          streetAddress={business.streetAddress}
+          postalCode={business.postalCode}
+          website={business.website}
+          image={business.image}
+          description={business.description}
         />
-      )}
-      <MoreStories morePosts={morePosts} />
+      ))}
     </div>
   );
 }

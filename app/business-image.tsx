@@ -1,11 +1,10 @@
 import ContentfulImage from "../lib/contentful-image";
-import Link from "next/link";
 
 function cn(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function CoverImage({
+export default function BusinessImage({
   title,
   url,
   slug,
@@ -18,8 +17,8 @@ export default function CoverImage({
     <ContentfulImage
       alt={`Cover Image for ${title}`}
       priority
-      width={2000}
-      height={1000}
+      width={500}
+      height={250}
       className={cn("shadow-small", {
         "hover:shadow-medium transition-shadow duration-200": slug,
       })}
@@ -29,13 +28,7 @@ export default function CoverImage({
 
   return (
     <div className="sm:mx-0">
-      {slug ? (
-        <Link href={`/posts/${slug}`} aria-label={title}>
-          {image}
-        </Link>
-      ) : (
-        image
-      )}
+      {image}
     </div>
   );
 }
