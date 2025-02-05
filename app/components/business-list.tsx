@@ -49,9 +49,11 @@ export default function BusinessList({ allBusinesses }: BusinessListProps) {
 
   const filteredBusinesses = allBusinesses.filter(
     (b) =>
-      (selectedCategory === "All" || (Array.isArray(b.category) && b.category.includes(selectedCategory))) &&
+      (selectedCategory === "All" || (Array.isArray(b.category) && b.category.map(cat => cat.trim()).includes(selectedCategory))) &&
       b.name.toLowerCase().includes(search.toLowerCase())
   );
+
+  console.log(filteredBusinesses)
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -70,6 +72,11 @@ export default function BusinessList({ allBusinesses }: BusinessListProps) {
     fetchImages();
   }, [allBusinesses, images]);
 
+  const handleCategorySelect = (category: string) => {
+    setSelectedCategory(category.trim());
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <div className="container mx-auto">
       {/* Collapsible Menu for Mobile */}
@@ -86,7 +93,7 @@ export default function BusinessList({ allBusinesses }: BusinessListProps) {
               {categories.map((category) => (
                 <button
                   key={category}
-                  onClick={() => setSelectedCategory(category)}
+                  onClick={() => handleCategorySelect(category)}
                   className={`px-4 py-2 text-sm rounded ${
                     selectedCategory === category ? "bg-primary text-secondary" : "bg-secondary text-accent"
                   }`}
@@ -107,7 +114,7 @@ export default function BusinessList({ allBusinesses }: BusinessListProps) {
               {categories.map((category) => (
                 <button
                   key={category}
-                  onClick={() => setSelectedCategory(category)}
+                  onClick={() => handleCategorySelect(category)}
                   className={`px-4 py-2 text-sm rounded ${
                     selectedCategory === category ? "bg-primary text-secondary" : "bg-secondary text-accent"
                   }`}
