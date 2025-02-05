@@ -76,19 +76,19 @@ export default function BusinessList({ allBusinesses }: BusinessListProps) {
       <div className="md:hidden">
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="w-full bg-gray-200 text-gray-700 p-2 rounded mb-4"
+          className="w-full bg-secondary text-accent p-2 rounded mb-4"
         >
           {isMenuOpen ? "Hide Categories" : "Show Categories"}
         </button>
         {isMenuOpen && (
-          <div className="bg-white shadow-lg p-4 rounded">
+          <div className="bg-[#FDF6E3] shadow-lg p-4 rounded">
             <div className="flex flex-col gap-2">
               {categories.map((category) => (
                 <button
                   key={category}
                   onClick={() => setSelectedCategory(category)}
                   className={`px-4 py-2 text-sm rounded ${
-                    selectedCategory === category ? "bg-black text-white" : "bg-gray-100 text-gray-700"
+                    selectedCategory === category ? "bg-primary text-secondary" : "bg-secondary text-accent"
                   }`}
                 >
                   {category}
@@ -101,7 +101,7 @@ export default function BusinessList({ allBusinesses }: BusinessListProps) {
 
       <div className="flex md:flex-row">
         {/* Sidebar for Larger Screens */}
-        <div className="hidden md:block bg-white shadow-lg z-30 w-full md:w-64 md:h-min">
+        <div className="hidden md:block bg-[#FDF6E3] shadow-lg z-30 w-full md:w-64 md:h-min md:mr-6">
           <div className="p-4">
             <div className="flex flex-col gap-2">
               {categories.map((category) => (
@@ -109,7 +109,7 @@ export default function BusinessList({ allBusinesses }: BusinessListProps) {
                   key={category}
                   onClick={() => setSelectedCategory(category)}
                   className={`px-4 py-2 text-sm rounded ${
-                    selectedCategory === category ? "bg-black text-white" : "bg-gray-100 text-gray-700"
+                    selectedCategory === category ? "bg-primary text-secondary" : "bg-secondary text-accent"
                   }`}
                 >
                   {category}
@@ -120,15 +120,15 @@ export default function BusinessList({ allBusinesses }: BusinessListProps) {
         </div>
 
         {/* Main Content */}
-        <div className="flex-grow pl-6 max-w-full mx-auto">
+        <div className="flex-grow max-w-full mx-auto">
           {/* Header & Search */}
-          <div className="sticky top-0 bg-white shadow-md p-4 rounded-lg mb-6 flex justify-between items-center">
+          <div className="sticky top-0 bg-secondary shadow-md p-4 rounded-lg mb-6 flex justify-between items-center">
             <input
               type="text"
               placeholder="Search businesses..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="flex-grow p-2 border rounded"
+              className="flex-grow p-2 border rounded text-accent bg-[#FDF6E3]"
             />
           </div>
 
@@ -136,7 +136,7 @@ export default function BusinessList({ allBusinesses }: BusinessListProps) {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {filteredBusinesses.map((business, index) => (
               <motion.div key={index} whileHover={{ scale: 1.05 }}>
-                <a href={business.website} target="_blank" rel="noopener noreferrer" className="block overflow-hidden shadow-lg rounded-2xl">
+                <a href={business.website} target="_blank" rel="noopener noreferrer" className="block overflow-hidden shadow-lg rounded-2xl bg-[#EAE0CB]">
                   <img
                     src={business.image?.url || placeholderImage}
                     alt={business.name}
