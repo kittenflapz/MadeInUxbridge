@@ -32,6 +32,7 @@ async function fetchUnsplashImage(query: string) {
 export default function BusinessList({ allBusinesses }: BusinessListProps) {
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [images, setImages] = useState<{ [key: string]: string }>({});
 
   const categorySet = new Set<string>();
@@ -70,56 +71,85 @@ export default function BusinessList({ allBusinesses }: BusinessListProps) {
   }, [allBusinesses, images]);
 
   return (
-    <div className="flex flex-col md:flex-row">
-      {/* Sidebar */}
-      <div className="bg-white shadow-lg z-30 w-full md:w-64 md:h-min">
-        <div className="p-4">
-          <div className="flex flex-col gap-2">
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                className={`px-4 py-2 text-sm rounded ${
-                  selectedCategory === category ? "bg-black text-white" : "bg-gray-100 text-gray-700"
-                }`}
-              >
-                {category}
-              </button>
-            ))}
+    <div className="container mx-auto">
+      {/* Collapsible Menu for Mobile */}
+      <div className="md:hidden">
+        <button
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          className="w-full bg-gray-200 text-gray-700 p-2 rounded mb-4"
+        >
+          {isMenuOpen ? "Hide Categories" : "Show Categories"}
+        </button>
+        {isMenuOpen && (
+          <div className="bg-white shadow-lg p-4 rounded">
+            <div className="flex flex-col gap-2">
+              {categories.map((category) => (
+                <button
+                  key={category}
+                  onClick={() => setSelectedCategory(category)}
+                  className={`px-4 py-2 text-sm rounded ${
+                    selectedCategory === category ? "bg-black text-white" : "bg-gray-100 text-gray-700"
+                  }`}
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
-      {/* Main Content */}
-      <div className="flex-grow pl-6 max-w-full mx-auto">
-        {/* Header & Search */}
-        <div className="sticky top-0 bg-white shadow-md p-4 rounded-lg mb-6 flex justify-between items-center">
-          <input
-            type="text"
-            placeholder="Search businesses..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="flex-grow p-2 border rounded"
-          />
+      <div className="flex md:flex-row">
+        {/* Sidebar for Larger Screens */}
+        <div className="hidden md:block bg-white shadow-lg z-30 w-full md:w-64 md:h-min">
+          <div className="p-4">
+            <div className="flex flex-col gap-2">
+              {categories.map((category) => (
+                <button
+                  key={category}
+                  onClick={() => setSelectedCategory(category)}
+                  className={`px-4 py-2 text-sm rounded ${
+                    selectedCategory === category ? "bg-black text-white" : "bg-gray-100 text-gray-700"
+                  }`}
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
 
-        {/* Business Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {filteredBusinesses.map((business, index) => (
-            <motion.div key={index} whileHover={{ scale: 1.05 }}>
-              <a href={business.website} target="_blank" rel="noopener noreferrer" className="block overflow-hidden shadow-lg rounded-2xl">
-                <img
-                  src={business.image?.url || placeholderImage}
-                  alt={business.name}
-                  className="w-full h-40 object-cover"
-                />
-                <div className="p-4">
-                  <h3 className="text-lg font-semibold">{business.name}</h3>
-                  <p className="text-sm text-gray-500">{Array.isArray(business.category) ? business.category.join(", ") : business.category}</p>
-                </div>
-              </a>
-            </motion.div>
-          ))}
+        {/* Main Content */}
+        <div className="flex-grow pl-6 max-w-full mx-auto">
+          {/* Header & Search */}
+          <div className="sticky top-0 bg-white shadow-md p-4 rounded-lg mb-6 flex justify-between items-center">
+            <input
+              type="text"
+              placeholder="Search businesses..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="flex-grow p-2 border rounded"
+            />
+          </div>
+
+          {/* Business Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {filteredBusinesses.map((business, index) => (
+              <motion.div key={index} whileHover={{ scale: 1.05 }}>
+                <a href={business.website} target="_blank" rel="noopener noreferrer" className="block overflow-hidden shadow-lg rounded-2xl">
+                  <img
+                    src={business.image?.url || placeholderImage}
+                    alt={business.name}
+                    className="w-full h-40 object-cover"
+                  />
+                  <div className="p-4">
+                    <h3 className="text-lg font-semibold">{business.name}</h3>
+                    <p className="text-sm text-gray-500">{Array.isArray(business.category) ? business.category.join(", ") : business.category}</p>
+                  </div>
+                </a>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
