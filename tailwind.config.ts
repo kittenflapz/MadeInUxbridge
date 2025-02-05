@@ -1,11 +1,11 @@
 import type { Config } from "tailwindcss";
 import typography from "@tailwindcss/typography";
 
-export default {
+const config: Config = {
   content: [
-    "./app/**/*.{ts,tsx}",
-    "./components/**/*.{ts,tsx}",
-    "./lib/**/*.{ts,tsx}",
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
@@ -16,7 +16,8 @@ export default {
         background: '#F2E8D8', // Warm Cream
       },
       fontFamily: {
-        sans: ["var(--font-inter)"],
+        heading: ['Merriweather', 'serif'],
+        body: ['Nunito', 'sans-serif'],
       },
     },
   },
@@ -24,4 +25,6 @@ export default {
     hoverOnlyWhenSupported: true,
   },
   plugins: [typography],
-} satisfies Config;
+}
+
+export default config;

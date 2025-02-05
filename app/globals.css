@@ -5,5 +5,36 @@
 /* Example of custom global styles */
 body {
   background-color: #FAF3E0; /* Warm Cream */
-  color: #3D405B; /* Muted Teal */
+  color: #3D405B; /* Muted Teal */ 
+}
+
+h1 {
+  font-size: 6rem !important;
+  line-height: 1.2 !important;
+}
+
+p {
+  font-size: 1.125rem; /* 18px */
+  line-height: 1.6; /* Improves readability */
+}
+
+.header {
+  background: radial-gradient(circle, #f6e8d8 10%, #EAE0CB 100%);
+}
+
+.soft-brown {
+  color: #A65D48; /* Soft brown */
+}
+
+.deep-terracotta {
+  color: #C65A37; /* Deep terracotta */
+}
+
+h1::after {
+  content: "";
+  display: block;
+  width: 100px;
+  height: 4px;
+  background: #c65a37;
+  margin-top: 8px;
 }
