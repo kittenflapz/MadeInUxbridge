@@ -53,7 +53,6 @@ export default function BusinessList({ allBusinesses }: BusinessListProps) {
       b.name.toLowerCase().includes(search.toLowerCase())
   );
 
-  console.log(filteredBusinesses)
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -88,7 +87,7 @@ export default function BusinessList({ allBusinesses }: BusinessListProps) {
           {isMenuOpen ? "Hide Categories" : "Show Categories"}
         </button>
         {isMenuOpen && (
-          <div className="bg-[#FDF6E3] shadow-lg p-4 rounded">
+          <div className="bg-[#FDF6E3] shadow-lg p-4 rounded" style={{ boxShadow: '0 4px 6px rgba(224, 122, 95, 0.1)' }}>
             <div className="flex flex-col gap-2">
               {categories.map((category) => (
                 <button
@@ -108,7 +107,7 @@ export default function BusinessList({ allBusinesses }: BusinessListProps) {
 
       <div className="flex md:flex-row">
         {/* Sidebar for Larger Screens */}
-        <div className="hidden md:block bg-[#FDF6E3] shadow-lg z-30 w-full md:w-64 md:h-min md:mr-6">
+        <div className="hidden md:block bg-[#EAE0CB] shadow-lg z-30 w-full md:w-64 md:h-min rounded md:mr-6" style={{ boxShadow: '0 4px 6px rgba(224, 122, 95, 0.1)' }}>
           <div className="p-4">
             <div className="flex flex-col gap-2">
               {categories.map((category) => (
@@ -116,7 +115,7 @@ export default function BusinessList({ allBusinesses }: BusinessListProps) {
                   key={category}
                   onClick={() => handleCategorySelect(category)}
                   className={`px-4 py-2 text-sm rounded ${
-                    selectedCategory === category ? "bg-primary text-secondary" : "bg-secondary text-accent"
+                    selectedCategory === category ? "bg-primary text-secondary" : "bg-[#FDF6E3] text-accent"
                   }`}
                 >
                   {category}
@@ -129,7 +128,7 @@ export default function BusinessList({ allBusinesses }: BusinessListProps) {
         {/* Main Content */}
         <div className="flex-grow max-w-full mx-auto">
           {/* Header & Search */}
-          <div className="sticky top-0 bg-secondary shadow-md p-4 rounded-lg mb-6 flex justify-between items-center">
+          <div className="sticky top-0 bg-secondary shadow-md p-4 rounded-lg mb-6 flex justify-between items-center" style={{ boxShadow: '0 4px 6px rgba(224, 122, 95, 0.1)' }}>
             <input
               type="text"
               placeholder="Search businesses..."
@@ -143,7 +142,7 @@ export default function BusinessList({ allBusinesses }: BusinessListProps) {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {filteredBusinesses.map((business, index) => (
               <motion.div key={index} whileHover={{ scale: 1.05 }}>
-                <a href={business.website} target="_blank" rel="noopener noreferrer" className="block overflow-hidden shadow-lg rounded-2xl bg-[#EAE0CB]">
+                <a href={business.website} target="_blank" rel="noopener noreferrer" className="block overflow-hidden shadow-lg rounded-2xl bg-[#EAE0CB]" style={{ boxShadow: '0 4px 6px rgba(224, 122, 95, 0.1)' }}>
                   <img
                     src={business.image?.url || placeholderImage}
                     alt={business.name}

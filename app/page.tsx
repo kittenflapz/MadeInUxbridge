@@ -3,7 +3,10 @@ import { getAllBusinesses } from "@/lib/api";
 
 function Intro() {
   return (
-    <section className="container mx-auto px-5 flex-col md:flex-row flex items-center md:justify-between mt-16 mb-16 md:mb-12 bg-secondary rounded-2xl shadow-lg p-10">
+    <section
+      className="container mx-auto px-5 flex-col md:flex-row flex items-center md:justify-between mt-16 mb-16 md:mb-12 bg-secondary rounded-2xl shadow-lg p-10"
+      style={{ boxShadow: '0 4px 6px rgba(224, 122, 95, 0.1)' }}
+    >
       <h1 className="text-6xl md:text-8xl font-bold tracking-tighter leading-tight md:pr-8 text-primary">
         Made in Uxbridge.
       </h1>
